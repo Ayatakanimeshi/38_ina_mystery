@@ -8,6 +8,7 @@ class UsersController < ApplicationController
     if @user.save 
       redirect_to stories_path
     else
+      flash.now[:danger] = 'ユーザー登録に失敗しました'
       render :new
     end
   end
