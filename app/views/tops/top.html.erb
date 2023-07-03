@@ -2,18 +2,37 @@
 <html>
 <head>
   <title>My App</title>
+  <link href="https://cdn.tailwindcss.com/2.2.19/tailwind.min.css" rel="stylesheet">
 </head>
 <body>
-  <h1>Welcome to イナミス!</h1>
+  <div class="flex flex-col min-h-screen justify-center bg-cover items-center bg-no-repeat bg-center" style="background-image: url('/toon.png');">
+      <div class=" border border-red-500 mx-auto px-auto ">
+        <ol>
+          <li>
+            <p class="text-8xl text-green-700 sticky top-1/2 text-center font-semibold"> Welcome to Ina Mystery</p>
+          </li>
+          <li>
+             <div class="flex justify-center items-center h-full">
+              <button class="bg-indigo-700  text-white font-semibold  hover:bg-red-500 focus:outline-none focus:shadow-outline py-2 px-4 rounded my-4 mt-9">
+                <%= link_to 'Create New User', new_user_path %>
+              </button>
+             </div>
+          </li>
+        </ol>
+      </div>
 
-  <p>
-    This is the home page for my application. Here, you can manage your account and see what's new.
-  </p>
 
-  <%= link_to 'Create New User', new_user_path %>
 
-  <footer>
-    <p>&copy; 2023 My App</p>
-  </footer>
+      <footer class="bg-gray-300 text-right py-4 fixed bottom-0 w-full">
+        <div class="container mx-auto">
+          <h1 class="text-gray-700">&copy; 2023 Ina Mystery</h1>
+        </div>
+      </footer>
+
+
+
+
+  </div>
 </body>
 </html>
+
