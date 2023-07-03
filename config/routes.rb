@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   resources :users, only: [:new, :create]
-
+  resources :stories, only: [:new, :show]
+  
+  get 'stories', to: 'stories#show'
   root 'tops#top'
 
   get 'login', to: 'sessions#new'
@@ -10,4 +12,5 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+  
 end
