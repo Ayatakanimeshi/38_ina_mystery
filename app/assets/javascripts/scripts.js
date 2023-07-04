@@ -1,29 +1,74 @@
 document.addEventListener('DOMContentLoaded', function() {
+  //要素を取得
   const scriptText = document.getElementById('script-text');
-  const scriptBox = document.getElementById('script-box')
-  let text = scriptText.innerText;
+  const scriptBox = document.getElementById('script-box');
+  //htmlから文字列を取得し、配列としてパース
+  let texts = JSON.parse(document.getElementById('texts-value').value)
+
+  //子要素を初期化
   scriptText.innerText = '';
+  //配列のインデックス
+  let currentIndex = 0;
 
-  let index = 0;
   let intervalId;
+  //テキストの描画が進行中かどうかのフラグ
+  let isDisplaying = false;
 
-  // 100ミリ秒ごとに一文字ずつ描画する関数
-  function drawText() {
-    if (index < text.length) {
-      scriptText.innerText += text.charAt(index);
-      index++;
-    } else {
-      clearInterval(intervalId);
-    }
+  //テキストを一文字ずつ表示するメソッド
+  function displayText(text) {
+    isDisplaying = true;
+    //const text = texts[currentIndex];
+    scriptText.innerText = '';
+    let index = 0;
+    intervalId = setInterval(function() {
+      if (index < text.length) {
+        scriptText.innerText += text.charAt(index);
+        index++;
+      } else {
+        //テキストを全文字描画した場合
+        clearInterval(intervalId);
+        isDisplaying = false;
+        currentIndex++;
+      }
+    }, 100);
   }
 
-  // 100ミリ秒ごとに一文字ずつ描画するタイマーを開始
-  intervalId = setInterval(drawText, 100);
+  //次のテキストを表示するメソッド
+  function displayNextText() {
+    if (isDisplaying) {
+      // テキストが表示中の場合は何もしない
+      return;
+    }
+    
+    //textsの要素の数文displayTextを実行する
+    if (currentIndex < texts.length) {
+      displayText(texts[currentIndex]);
+    } else {
+      // 最後のテキストまで表示された後の処理
+      console.log("終わり");
+    };
+  };
 
-  // ダブルクリックイベントリスナー
+  //テキスト要素にイベントリスナーを加える
   scriptBox.addEventListener('click', function() {
-    // タイマーを停止して、全てのテキストを表示
-    clearInterval(intervalId);
-    scriptText.innerText = text;
+    if (isDisplaying) {
+      clearInterval(intervalId);
+      // テキストが表示中の場合は何もしない
+      scriptText.innerText = texts[currentIndex];
+      isDisplaying = false;
+      currentIndex++;
+    }else{
+       // テキストを空にする
+      scriptText.innerText = '';
+      // 次のテキストを一文字ずつ表示する処理を呼び出す
+      displayNextText();
+    }
   });
+  //1回目の実行
+  displayText(texts[0]);
+
+  //未実装　シーン用の関数
+  function chengeScene(){
+    //シーンを変更する処理を記述する
+  };
 });
