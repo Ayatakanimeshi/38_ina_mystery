@@ -2,15 +2,19 @@ document.addEventListener('DOMContentLoaded', function() {
   //要素を取得
   const scriptText = document.getElementById('script-text');
   const scriptBox = document.getElementById('script-box');
+  const backgroundBox = document.getElementById('background-box');
+  
   //htmlから文字列を取得し、配列としてパース
-  let texts = JSON.parse(document.getElementById('texts-value').value)
-
+  let texts = JSON.parse(document.getElementById('texts-value').value);
+  const backgrounds = JSON.parse(document.getElementById('backgrounds-value').value);
   //子要素を初期化
   scriptText.innerText = '';
+
   //配列のインデックス
   let currentIndex = 0;
-
   let intervalId;
+  let backgroundId = 0
+
   //テキストの描画が進行中かどうかのフラグ
   let isDisplaying = false;
 
@@ -46,6 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
       // 最後のテキストまで表示された後の処理
       changeScene();
+      backgroundId ++
     };
   };
 
@@ -67,9 +72,8 @@ document.addEventListener('DOMContentLoaded', function() {
   //1回目の実行
   displayText(texts[0]);
 
-  //未実装　シーン用の関数
+  //背景チェンジの関数
   function changeScene(){
-    //シーンを変更する処理を記述する
-    console.log("シーンチェンジ");
+    backgroundBox.style.backgroundImage = `url('/images/${backgrounds[backgroundId]}')`;
   };
 });
