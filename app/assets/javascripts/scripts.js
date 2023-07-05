@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
       displayText(texts[currentIndex]);
     } else {
       // 最後のテキストまで表示された後の処理
-      console.log("終わり");
+      changeScene();
     };
   };
 
@@ -68,7 +68,8 @@ document.addEventListener('DOMContentLoaded', function() {
   displayText(texts[0]);
 
   //未実装　シーン用の関数
-  function chengeScene(){
+  function changeScene(){
     //シーンを変更する処理を記述する
+    console.log("シーンチェンジ");
   };
 });
