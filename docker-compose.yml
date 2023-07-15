@@ -1,0 +1,30 @@
+
+version: "3"
+services:
+  db:
+    image: postgres
+    platform: linux/arm64
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql
+  web:
+    build: .
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    volumes:
+      - .:/ina_mystery
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    stdin_open: true
+    tty: true
+    environment:
+      - POSTGRES_HOST=db
+      - POSTGRES_PASSWORD=password
+volumes:
+  postgres-data:
+    driver: local
